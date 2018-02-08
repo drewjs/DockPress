@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+
+  app:
+    image: drewjs/dockpress
+    ports:
+     - "${APP_PORT}:80"

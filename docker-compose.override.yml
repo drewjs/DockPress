@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  app:
+    build:
+      context: ./docker/app
+      dockerfile: Dockerfile
+    volumes:
+     - ./src:/var/www/html
+    networks:
+     - bridged
+
+  db:
+    image: mariadb:10.3
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASS}"
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+     - dbdata:/var/lib/mysql
+    networks:
+     - bridged
+
+networks:
+  bridged:
+
+volumes:
+  dbdata:
+    driver: "local"

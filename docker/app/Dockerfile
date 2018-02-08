@@ -1,7 +1,5 @@
 FROM ubuntu:16.04
 
-MAINTAINER Joe Purdy <hello@joepurdy.io>
-
 # Install locales
 RUN apt update && apt install -y locales
 RUN locale-gen en_US.UTF-8
