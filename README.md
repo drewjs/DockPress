@@ -42,7 +42,3 @@ DB_HOST=mysql
 4. Create an entry in your hostfile mapping the `WP_HOME` address to `127.0.0.1`
 
 5. Access WP admin at `http://example.dev/wp/wp-admin`
-
-## Contributing
-
-Contributions are welcome from everyone. I don't consider myself an expert here since I only work on WordPress projects once in a blue moon. Check out the [contributing guidelines](https://github.com/joepurdy/DockPress/blob/master/CONTRIBUTING.md) to help you get started.
