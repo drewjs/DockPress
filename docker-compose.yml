@@ -5,4 +5,13 @@ services:
   app:
     image: drewjs/dockpress
     ports:
-     - "${APP_PORT}:80"
+      - "${APP_PORT}:80"
+    networks:
+      - backend
+
+  db:
+    image: mariadb:10.3
+    ports:
+      - "${DB_PORT}:3306"
+    networks:
+      - backend
