@@ -38,6 +38,9 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
+# Install Extra
+RUN apt update && apt install -y vim
+
 # Misc. Cleanup
 RUN mkdir /run/php \
     && apt remove -y --purge software-properties-common \
@@ -48,8 +51,10 @@ RUN mkdir /run/php \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY default /etc/nginx/sites-available/default
 COPY php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
+COPY php.ini /etc/php/7.1/fpm/php.ini
 
 EXPOSE 80
 
