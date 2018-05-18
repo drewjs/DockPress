@@ -39,18 +39,21 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && mv wp-cli.phar /usr/local/bin/wp
 
 # Install Extra
-RUN apt update && apt install -y vim
+RUN apt update && apt install -y vim net-tools
 
 # Misc. Cleanup
-RUN mkdir /run/php \
+RUN mkdir -p /run/php \
     && apt remove -y --purge software-properties-common \
     && apt -y autoremove \
     && apt clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && echo "daemon off;" >> /etc/nginx/nginx.conf \
+    && mkdir -p /var/log/nginx \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
+# Configuration
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY default /etc/nginx/sites-available/default
 COPY php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
 COPY php.ini /etc/php/7.1/fpm/php.ini
