@@ -59,7 +59,25 @@ COPY php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
 COPY php.ini /etc/php/7.1/fpm/php.ini
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+<<<<<<< HEAD:docker/web/Dockerfile
 WORKDIR /var/www/html
+=======
+# SSL Certificate
+RUN mkdir -p /etc/nginx/ssl/private && \
+    chmod 755 /etc/nginx/ssl && \
+    chmod 710 /etc/nginx/ssl/private && \
+    chown -R root:root /etc/nginx/ssl/ && \
+    openssl genrsa -des3 -passout pass:x -out server.pass.key 2048 && \
+    openssl rsa -passin pass:x -in server.pass.key -out /etc/nginx/ssl/private/server.key && \
+    rm server.pass.key && \
+    openssl req -new -key /etc/nginx/ssl/private/server.key -out /etc/nginx/ssl/server.csr \
+        -subj "/C=UK/ST=Warwickshire/L=Leamington/O=OrgName/OU=IT Department/CN=example.com" && \
+    openssl x509 -req -days 365 -in /etc/nginx/ssl/server.csr -signkey /etc/nginx/ssl/private/server.key -out /etc/nginx/ssl/server.crt && \
+    chmod 644 /etc/nginx/ssl/*.crt && \
+    chmod 640 /etc/nginx/ssl/private/*.key
+
+EXPOSE 80 443
+>>>>>>> Add ssl local docker:docker/app/Dockerfile
 
 # Wordpress permissions
 RUN mkdir -p web/app/uploads/cache
