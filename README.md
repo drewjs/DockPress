@@ -1,6 +1,6 @@
 # [DockPress](https://joepurdy.io/words/dockerize-wordpress-with-roots.io)
 
-DockPress is a dockerized version of WordPress inspired heavily by the Roots.io approach to managing a modern WordPress application.
+Dockerized version of WordPress inspired heavily by the Roots.io approach to managing a modern WordPress application.
 
 ## Features
 

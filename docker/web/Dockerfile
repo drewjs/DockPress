@@ -51,13 +51,19 @@ RUN mkdir /run/php \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
-COPY nginx.conf /etc/nginx/nginx.conf
 COPY default /etc/nginx/sites-available/default
 COPY php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
 COPY php.ini /etc/php/7.1/fpm/php.ini
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+WORKDIR /var/www/html
+
+# Wordpress permissions
+RUN mkdir -p web/app/uploads/cache
+RUN chown -R www-data:www-data .
+RUN find . -type d -exec chmod 755 {} \;
+RUN find . -type f -exec chmod 644 {} \;
 
 EXPOSE 80
-
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 CMD ["/usr/bin/supervisord"]

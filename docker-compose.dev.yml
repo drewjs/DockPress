@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: docker/web
+      dockerfile: Dockerfile
+    image: fintruth/rotf
+    ports:
+      - "${APP_PORT}:80"
+    links:
+      - db
+    networks:
+      - backend
+    volumes:
+      - ./src:/var/www/html
+  db:
+    image: mariadb:10.4
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASS}"
+    ports:
+      - "${DB_PORT}:3306"
+    networks:
+      - backend
+    volumes:
+      - dbdata:/var/lib/mysql
+
+networks:
+  backend:
+
+volumes:
+  dbdata:
+    driver: "local"
