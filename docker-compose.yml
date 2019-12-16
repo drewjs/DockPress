@@ -16,3 +16,6 @@ services:
       - "${DB_PORT}:3306"
     networks:
       - backend
+
+networks:
+  backend:
