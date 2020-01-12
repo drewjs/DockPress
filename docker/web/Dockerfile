@@ -59,9 +59,6 @@ COPY php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
 COPY php.ini /etc/php/7.1/fpm/php.ini
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-<<<<<<< HEAD:docker/web/Dockerfile
-WORKDIR /var/www/html
-=======
 # SSL Certificate
 RUN mkdir -p /etc/nginx/ssl/private && \
     chmod 755 /etc/nginx/ssl && \
@@ -77,7 +74,6 @@ RUN mkdir -p /etc/nginx/ssl/private && \
     chmod 640 /etc/nginx/ssl/private/*.key
 
 EXPOSE 80 443
->>>>>>> Add ssl local docker:docker/app/Dockerfile
 
 # Wordpress permissions
 RUN mkdir -p web/app/uploads/cache
